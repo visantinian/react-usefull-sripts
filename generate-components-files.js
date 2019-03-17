@@ -29,26 +29,31 @@ const removeKebab = (a) => {
 }
 
 folderNames.forEach(function (folderName) {
-    mkdirp(`./src/components/${folderName}`, function (err) {
+    mkdirp(`../src/components/${folderName}`, function (err) {
         if (err) console.error(err);
         else console.log(`${folderName} created wapeow!`)
     });
 
-    fs.writeFile(`./src/components/${folderName}/${folderName}.js`,
-        `import React from 'react';\n\nimport './${folderName}.css'
-      \nconst ${removeKebab(folderName)} = () => {\n};`, function (err) {
-            if (err) console.error(err);
-            console.log(`File ${folderName}.js is created successfully.`);
-        });
+    fs.writeFile(
+      `../src/components/${folderName}/${folderName}.js`,
+      `import React from 'react';\n\nimport './${folderName}.css'
+      \nconst ${removeKebab(folderName)} = () => {
+          \nrender() {\n return (\n<div>\n</div>\n)\n}\n};
+       \n export default ${removeKebab(folderName)};`,
+      function(err) {
+        if (err) console.error(err);
+        console.log(`File ${folderName}.js is created successfully.`);
+      }
+    );
 
-    fs.writeFile(`./src/components/${folderName}/${folderName}.css`, '', function (err) {
+    fs.writeFile(`../src/components/${folderName}/${folderName}.css`, '', function (err) {
         if (err) console.error(err);
         console.log(`File ${folderName}.css is created successfully.`);
     });
 
-    fs.writeFile(`./src/components/${folderName}/index.js`,
+    fs.writeFile(`../src/components/${folderName}/index.js`,
         `import ${removeKebab(folderName)} from './${folderName}';
-        \nexport default class ${removeKebab(folderName)};`, function (err) {
+        \nexport default ${removeKebab(folderName)};`, function (err) {
             if (err) console.error(err);
             console.log(`File index.js  in ${folderName}is created successfully.`);
         })
